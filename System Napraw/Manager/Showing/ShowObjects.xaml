@@ -1,0 +1,33 @@
+﻿<Window x:Class="System_Napraw.Manager.ShowObjects"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:System_Napraw.Manager"
+        mc:Ignorable="d"
+        Title="ShowObjects" Height="380.581" Width="748.215">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="54*"/>
+            <ColumnDefinition Width="193*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid IsReadOnly="True" x:Name="dataGrid" Grid.Column="1" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="286" Margin="9.6,55,0,0" VerticalAlignment="Top" Width="560">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Typ Obiektu" Binding="{Binding Path=Object_Type.type_name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nazwa Obiektu" Binding="{Binding Path=name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Imie Klienta" Binding="{Binding Path=Client.first_name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nazwisko Klienta" Binding="{Binding Path=Client.second_name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="chooseButton" Content="Wybierz" HorizontalAlignment="Left" Height="40" Margin="23,25,0,0" VerticalAlignment="Top" Width="129" Click="chooseButton_Click"/>
+        <Button x:Name="newObjButton" Content="Nowy" HorizontalAlignment="Left" Height="39" Margin="23,82,0,0" VerticalAlignment="Top" Width="129" Click="newObjButton_Click"/>
+        <Button x:Name="backButton" Click="backButton_Click" Content="Powrót" HorizontalAlignment="Left" Height="43" Margin="23,236,0,0" VerticalAlignment="Top" Width="129"/>
+        <Label x:Name="label" Content="Typ:" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="38.6,17,0,0" VerticalAlignment="Top" Width="31"/>
+        <ComboBox x:Name="objectType" Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="75,17,0,0" VerticalAlignment="Top" Width="101"/>
+        <Button x:Name="ownerButton" Click="ownerButton_Click" Content="Właściciel" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="227.6,22,0,0" VerticalAlignment="Top" Width="86"/>
+        <Button x:Name="searchButton" Click="searchButton_Click" Content="Szukaj" Grid.Column="1" HorizontalAlignment="Left" Height="19" Margin="473.6,22,0,0" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="ownerTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="327.6,25,0,0" TextWrapping="Wrap" Text="brak" VerticalAlignment="Top" Width="110"/>
+        <Button x:Name="editButton" Content="Edytuj" HorizontalAlignment="Left" Height="37" Margin="23,138,0,0" VerticalAlignment="Top" Width="129" Click="editButton_Click"/>
+
+    </Grid>
+</Window>

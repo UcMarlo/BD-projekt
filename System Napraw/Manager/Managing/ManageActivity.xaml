@@ -1,0 +1,48 @@
+﻿<Window x:Class="System_Napraw.Manager.ManageActivity"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:System_Napraw.Manager"
+        xmlns:custom="clr-namespace:DataLayer;assembly=DataLayer"
+          xmlns:custom1="clr-namespace:BusinessLayer;assembly=BusinessLayer"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="ManageActivity" Height="302.112" Width="715">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="MyEnumValues" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="custom:Status"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <custom1:EnumDescriptionConverter x:Key="MyConverter" />
+    </Window.Resources>
+    <Grid>
+        <Button x:Name="presonelButton" Click="presonelButton_Click" Content="Wybierz wykonawcę" HorizontalAlignment="Left" Height="25" Margin="26,33,0,0" VerticalAlignment="Top" Width="121"/>
+        <TextBlock x:Name="currentWorker" HorizontalAlignment="Left" Height="16" Margin="167,37,0,0" TextWrapping="Wrap" Text="Brak Wykonawcy" VerticalAlignment="Top" Width="153"/>
+        <Label x:Name="label" Content="Opis czynności:" HorizontalAlignment="Left" Height="24" Margin="52,72,0,0" VerticalAlignment="Top" Width="95"/>
+        <TextBox x:Name="descriptionText" HorizontalAlignment="Left" Height="36" Margin="167,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224"/>
+        <Label x:Name="label1" Content="Rezultat:" HorizontalAlignment="Left" Height="27" Margin="87,129,0,0" VerticalAlignment="Top" Width="60"/>
+        <TextBox x:Name="resultText" HorizontalAlignment="Left" Height="40" Margin="167,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224"/>
+        <Label x:Name="label2" Content="Status:" HorizontalAlignment="Left" Height="25" Margin="99,183,0,0" VerticalAlignment="Top" Width="48"/>
+        <ComboBox SelectedIndex="0" ItemsSource="{Binding Source={StaticResource MyEnumValues}}" x:Name="statusBox" HorizontalAlignment="Left" Height="25" Margin="167,183,0,0" VerticalAlignment="Top" Width="153">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource MyConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label x:Name="labelBegin" Content="Data zlecenia:" HorizontalAlignment="Left" Height="25" Margin="444,32,0,0" VerticalAlignment="Top" Width="90"/>
+        <Label x:Name="labelEnd" Content="Data zakończenia:" HorizontalAlignment="Left" Height="28" Margin="431,72,0,0" VerticalAlignment="Top" Width="103"/>
+        <Label x:Name="label5" Content="Rodzaj aktywności:" HorizontalAlignment="Left" Height="27" Margin="422,129,0,0" VerticalAlignment="Top" Width="112"/>
+        <ComboBox x:Name="activityComboBox" HorizontalAlignment="Left" Height="27" Margin="539,129,0,0" VerticalAlignment="Top" Width="98" />
+        <Button x:Name="buttonAccept" Click="buttonAccept_Click" Content="Akceptuj" HorizontalAlignment="Left" Height="28" Margin="240,235,0,0" VerticalAlignment="Top" Width="149"/>
+        <Button x:Name="buttonCancel" Click="buttonCancel_Click" Content="Powrót" HorizontalAlignment="Left" Height="28" Margin="496,235,0,0" VerticalAlignment="Top" Width="123"/>
+        <DatePicker x:Name="beginDate" HorizontalAlignment="Left" Margin="555,29,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="endDate" HorizontalAlignment="Left" Margin="555,72,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="errorText" HorizontalAlignment="Left" Margin="444,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213" Height="25"/>
+        <StackPanel x:Name="UserControlPanel" HorizontalAlignment="Left" Height="199" Margin="26,19,0,0" VerticalAlignment="Top" Width="649"/>
+
+    </Grid>
+</Window>

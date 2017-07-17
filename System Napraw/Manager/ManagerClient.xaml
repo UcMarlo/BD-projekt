@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="System_Napraw.Manager.ManagerClients"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:System_Napraw.Manager"
+             mc:Ignorable="d" 
+             d:DesignHeight="483" d:DesignWidth="1000">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left"  VerticalAlignment="Top"  Grid.Column="0" Grid.Row="0" Margin="10,3,0,-302"  Width="180" Height="302">
+            <TextBlock Margin="10" x:Name="textBlock" TextWrapping="Wrap"><Run Text="Wybierz "/><Run Text="czyność"/></TextBlock>
+            <Button x:Name="addButton" Content="Dodaj" Click="addButton_Click" Height="66"/>
+            <Button x:Name="editButton" Height="64" Content="Edytuj" Click="editButton_Click"/>
+            <Button x:Name="showObjectsButton" Content="Pokaż Obiekty" Click="showObjectsButton_Click"  Height="66"/>
+
+        </StackPanel>
+        <DataGrid IsReadOnly="True" x:Name="dataGrid" Grid.Column="1" HorizontalAlignment="Left" Height="460" Margin="10,13,0,-470" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Imie" Binding="{Binding Path=first_name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=second_name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding Path=phone}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Adress" Binding="{Binding Path=adressList[0].adressString}"></DataGridTextColumn>
+                <!--<DataGridTextColumn Header="Miasto"  Binding="{Binding DataContext.Adress[0].city, Mode=TwoWay}"></DataGridTextColumn>-->
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,623 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="id_activity" />
+          </Key>
+          <Property Name="id_activity" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_request" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_personel" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
+          <Property Name="result" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="date_reg" Type="date" Nullable="false" />
+          <Property Name="date_fin" Type="date" />
+          <Property Name="act_type" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Activity Type">
+          <Key>
+            <PropertyRef Name="act_type" />
+          </Key>
+          <Property Name="act_type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="act_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="id_adress" />
+          </Key>
+          <Property Name="id_client" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="adress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="postcode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_adress" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="second_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="id_object" />
+          </Key>
+          <Property Name="id_object" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_client" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="obj_type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Object Type">
+          <Key>
+            <PropertyRef Name="type_code" />
+          </Key>
+          <Property Name="type_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="type_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Personel">
+          <Key>
+            <PropertyRef Name="id_person" />
+          </Key>
+          <Property Name="id_person" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="second_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="retire_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="id_request" />
+          </Key>
+          <Property Name="id_request" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_object" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_manager" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
+          <Property Name="result" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="date_reg" Type="date" Nullable="false" />
+          <Property Name="date_fin_can" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Activity_Activity Type">
+          <End Role="Activity Type" Type="Self.Activity Type" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity Type">
+              <PropertyRef Name="act_type" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="act_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Personel">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="id_person" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="id_personel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="id_request" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="id_request" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_Object Type">
+          <End Role="Object Type" Type="Self.Object Type" Multiplicity="1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object Type">
+              <PropertyRef Name="type_code" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="obj_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="id_object" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="id_object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Personel">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="id_person" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="id_manager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Activity Type" EntityType="Self.Activity Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Adress" EntityType="Self.Adress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Object Type" EntityType="Self.Object Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personel" EntityType="Self.Personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Activity_Activity Type" Association="Self.FK_Activity_Activity Type">
+            <End Role="Activity Type" EntitySet="Activity Type" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Personel" Association="Self.FK_Activity_Personel">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Request" Association="Self.FK_Activity_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Client" Association="Self.FK_Adress_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Client" Association="Self.FK_Object_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Object Type" Association="Self.FK_Object_Object Type">
+            <End Role="Object Type" EntitySet="Object Type" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Object" Association="Self.FK_Request_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Personel" Association="Self.FK_Request_Personel">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="id_activity" />
+          </Key>
+          <Property Name="id_activity" Type="Guid" Nullable="false" />
+          <Property Name="id_request" Type="Guid" Nullable="false" />
+          <Property Name="id_personel" Type="Guid" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="result" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Model.Status" Nullable="false" />
+          <Property Name="date_reg" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_fin" Type="DateTime" Precision="0" />
+          <Property Name="act_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Activity_Type" Relationship="Self.FK_Activity_Activity_Type" FromRole="Activity" ToRole="Activity_Type" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Activity_Personel" FromRole="Activity" ToRole="Personel" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Activity_Request" FromRole="Activity" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Activity_Type">
+          <Key>
+            <PropertyRef Name="act_type" />
+          </Key>
+          <Property Name="act_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="act_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_Activity_Activity_Type" FromRole="Activity_Type" ToRole="Activity" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Guid" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="second_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Adress" Relationship="Self.FK_Adress_Client" FromRole="Client" ToRole="Adress" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_Object_Client" FromRole="Client" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="id_object" />
+          </Key>
+          <Property Name="id_object" Type="Guid" Nullable="false" />
+          <Property Name="id_client" Type="Guid" Nullable="false" />
+          <Property Name="obj_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Object_Client" FromRole="Object" ToRole="Client" />
+          <NavigationProperty Name="Object_Type" Relationship="Self.FK_Object_Object_Type" FromRole="Object" ToRole="Object_Type" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Object" FromRole="Object" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Object_Type">
+          <Key>
+            <PropertyRef Name="type_code" />
+          </Key>
+          <Property Name="type_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_Object_Object_Type" FromRole="Object_Type" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="Personel">
+          <Key>
+            <PropertyRef Name="id_person" />
+          </Key>
+          <Property Name="id_person" Type="Guid" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="second_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="Model.Role" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_Activity_Personel" FromRole="Personel" ToRole="Activity" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Personel" FromRole="Personel" ToRole="Request" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="retire_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="id_request" />
+          </Key>
+          <Property Name="id_request" Type="Guid" Nullable="false" />
+          <Property Name="id_object" Type="Guid" Nullable="false" />
+          <Property Name="id_manager" Type="Guid" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="result" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Model.Status" Nullable="false" />
+          <Property Name="date_reg" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_fin_can" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_Activity_Request" FromRole="Request" ToRole="Activity" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_Request_Object" FromRole="Request" ToRole="Object" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Request_Personel" FromRole="Request" ToRole="Personel" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="id_adress" />
+          </Key>
+          <Property Name="id_client" Type="Guid" Nullable="false" />
+          <Property Name="adress1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Adress_Client" FromRole="Adress" ToRole="Client" />
+          <Property Name="id_adress" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Activity_Activity_Type">
+          <End Role="Activity_Type" Type="Self.Activity_Type" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity_Type">
+              <PropertyRef Name="act_type" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="act_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Personel">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="id_person" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="id_personel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Activity_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="id_request" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="id_request" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_Object_Type">
+          <End Role="Object_Type" Type="Self.Object_Type" Multiplicity="1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object_Type">
+              <PropertyRef Name="type_code" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="obj_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="id_object" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="id_object" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Personel">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="id_person" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="id_manager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="System_NaprawEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activity" EntityType="Self.Activity" />
+          <EntitySet Name="Activity_Type" EntityType="Self.Activity_Type" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Object" EntityType="Self.Object" />
+          <EntitySet Name="Object_Type" EntityType="Self.Object_Type" />
+          <EntitySet Name="Personel" EntityType="Self.Personel" />
+          <EntitySet Name="Request" EntityType="Self.Request" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Adress" EntityType="Self.Adress" />
+          <AssociationSet Name="FK_Activity_Activity_Type" Association="Self.FK_Activity_Activity_Type">
+            <End Role="Activity_Type" EntitySet="Activity_Type" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Personel" Association="Self.FK_Activity_Personel">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Activity_Request" Association="Self.FK_Activity_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Client" Association="Self.FK_Adress_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Client" Association="Self.FK_Object_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Object_Type" Association="Self.FK_Object_Object_Type">
+            <End Role="Object_Type" EntitySet="Object_Type" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Object" Association="Self.FK_Request_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Personel" Association="Self.FK_Request_Personel">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+        </EntityContainer>
+        <EnumType Name="Role">
+          <Member Name="Manager" />
+          <Member Name="Worker" />
+          <Member Name="Admin" />
+        </EnumType>
+        <EnumType Name="Status" />
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="System_NaprawEntities">
+          <EntitySetMapping Name="Activity">
+            <EntityTypeMapping TypeName="Model.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="id_activity" ColumnName="id_activity" />
+                <ScalarProperty Name="id_request" ColumnName="id_request" />
+                <ScalarProperty Name="id_personel" ColumnName="id_personel" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="result" ColumnName="result" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_reg" ColumnName="date_reg" />
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="act_type" ColumnName="act_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activity_Type">
+            <EntityTypeMapping TypeName="Model.Activity_Type">
+              <MappingFragment StoreEntitySet="Activity Type">
+                <ScalarProperty Name="act_type" ColumnName="act_type" />
+                <ScalarProperty Name="act_name" ColumnName="act_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="second_name" ColumnName="second_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Object">
+            <EntityTypeMapping TypeName="Model.Object">
+              <MappingFragment StoreEntitySet="Object">
+                <ScalarProperty Name="id_object" ColumnName="id_object" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="obj_type" ColumnName="obj_type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Object_Type">
+            <EntityTypeMapping TypeName="Model.Object_Type">
+              <MappingFragment StoreEntitySet="Object Type">
+                <ScalarProperty Name="type_code" ColumnName="type_code" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personel">
+            <EntityTypeMapping TypeName="Model.Personel">
+              <MappingFragment StoreEntitySet="Personel">
+                <ScalarProperty Name="retire_date" ColumnName="retire_date" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="id_person" ColumnName="id_person" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="second_name" ColumnName="second_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="Model.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="id_request" ColumnName="id_request" />
+                <ScalarProperty Name="id_object" ColumnName="id_object" />
+                <ScalarProperty Name="id_manager" ColumnName="id_manager" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="result" ColumnName="result" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_reg" ColumnName="date_reg" />
+                <ScalarProperty Name="date_fin_can" ColumnName="date_fin_can" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Adress">
+            <EntityTypeMapping TypeName="Model.Adress">
+              <MappingFragment StoreEntitySet="Adress">
+                <ScalarProperty Name="id_adress" ColumnName="id_adress" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="adress1" ColumnName="adress" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postcode" ColumnName="postcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:System_Napraw.Manager.Managing"
+        xmlns:BusinessLayer="clr-namespace:BusinessLayer;assembly=BusinessLayer" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:DataLayer="clr-namespace:DataLayer;assembly=DataLayer" x:Class="System_Napraw.Manager.Managing.SearchActivity"
+        mc:Ignorable="d"
+        Title="SearchActivity" Height="300" Width="550.921">
+    <Window.Resources>
+        <BusinessLayer:EnumDescriptionConverter x:Key="MyConverter" />
+        <ObjectDataProvider x:Key="MyEnumValues" MethodName="GetValues"
+            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="DataLayer:Status"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid HorizontalAlignment="Left" Width="541" Margin="0,0,0,-1">
+        <Button x:Name="presonelButton" Click="presonelButton_Click" Content="Wybierz wykonawcę" HorizontalAlignment="Left" Height="25" Margin="26,33,0,0" VerticalAlignment="Top" Width="121"/>
+        <TextBlock x:Name="currentWorker" HorizontalAlignment="Left" Height="16" Margin="167,37,-28,0" TextWrapping="Wrap" Text="Brak Wykonawcy" VerticalAlignment="Top" Width="153"/>
+        <Button x:Name="buttonAccept" Click="buttonAccept_Click" Content="Akceptuj" HorizontalAlignment="Left" Height="28" Margin="269,235,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="buttonCancel" Content="Powrót" HorizontalAlignment="Left" Height="28" Margin="411,235,0,0" VerticalAlignment="Top" Width="120" Click="buttonCancel_Click"/>
+        <ComboBox x:Name="activityTypeBox" HorizontalAlignment="Left" Height="27" Margin="433,155,0,0" VerticalAlignment="Top" Width="98"/>
+        <Label x:Name="label5" Content="Rodzaj aktywności:" HorizontalAlignment="Left" Height="27" Margin="305,155,0,0" VerticalAlignment="Top" Width="112"/>
+        <DatePicker x:Name="beginOrderDate" HorizontalAlignment="Left" Margin="429,37,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="beginExecutionDate" HorizontalAlignment="Left" Margin="429,98,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelEnd" Content="Data wykonania:" HorizontalAlignment="Left" Height="28" Margin="314,94,0,0" VerticalAlignment="Top" Width="103"/>
+        <Label x:Name="labelBegin" Content="Data zlecenia:" HorizontalAlignment="Left" Height="25" Margin="327,37,0,0" VerticalAlignment="Top" Width="90"/>
+
+        <ComboBox SelectedIndex="0" ItemsSource="{Binding Source={StaticResource MyEnumValues}}" x:Name="statusBox" HorizontalAlignment="Left" Height="25" Margin="102,76,0,0" VerticalAlignment="Top" Width="153">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource MyConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label x:Name="label2" Content="Status:" HorizontalAlignment="Left" Height="25" Margin="26,76,0,0" VerticalAlignment="Top" Width="48"/>
+        <DatePicker x:Name="endOrderDate" HorizontalAlignment="Left" Margin="429,61,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="endExecutionDate" HorizontalAlignment="Left" Margin="429,122,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
