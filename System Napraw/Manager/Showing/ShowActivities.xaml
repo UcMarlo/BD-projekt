@@ -16,7 +16,9 @@
                 <x:Type TypeName="custom:Status"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <custom1:NullableVaueConverter x:Key="NullableConverter" />
         <custom1:EnumDescriptionConverter x:Key="MyConverter" />
+    
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -31,9 +33,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True"  Header="Opis" Binding="{Binding description}"/>
                 <DataGridTextColumn IsReadOnly="True" Header="Status" Binding="{Binding Path=status, Converter={StaticResource MyConverter}}"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Osoba wykonująca" Binding="{Binding Personel.personel_string,StringFormat='dd.MM.yy'}"/>
+                <DataGridTextColumn x:Name="personColumn" IsReadOnly="True" Header="Osoba wykonująca" Binding="{Binding Personel.personel_string,Converter={StaticResource NullableConverter}}"/>
                 <DataGridTextColumn IsReadOnly="True" Header="Data rozpoczecia" Binding="{Binding date_reg,StringFormat='dd.MM.yy'}"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Data zakończenia" Binding="{Binding date_fin_can,StringFormat='dd.MM.yy'}"/>
+                <DataGridTextColumn IsReadOnly="True"  Header="Data zakończenia" Binding="{Binding date_fin_can,StringFormat='dd.MM.yy'}"/>
                 <DataGridTextColumn IsReadOnly="True"  Header="Typ aktywności" Binding="{Binding Activity_Type.act_name}"/>
             </DataGrid.Columns>
         </DataGrid>

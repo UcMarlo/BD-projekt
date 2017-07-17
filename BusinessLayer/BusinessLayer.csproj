@@ -63,6 +63,7 @@
     <Compile Include="DAO\PersonelDAO.cs" />
     <Compile Include="DAO\RequestDAO.cs" />
     <Compile Include="EnumDescriptionConverter.cs" />
+    <Compile Include="NullableVaueConverter.cs" />
     <Compile Include="PassEncryption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

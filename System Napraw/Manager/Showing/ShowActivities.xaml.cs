@@ -56,6 +56,7 @@ namespace System_Napraw.Manager
 
         public void refreshGird()
         {
+           
             try
             {
 

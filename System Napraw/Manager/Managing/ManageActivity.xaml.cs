@@ -308,7 +308,11 @@ namespace System_Napraw.Manager
             activityComboBox.SelectedItem = activityTypes.Where(a => a.act_type == activity.act_type).First();
             resultText.Text = activity.result;
             descriptionText.Text = activity.description;
-            currentWorker.Text = activity.Personel.first_name + " "+ activity.Personel.second_name;
+            if (activity.Personel!=null)
+            {
+                currentWorker.Text = activity.Personel.first_name + " " + activity.Personel.second_name;
+            }
+           
 
         }
 

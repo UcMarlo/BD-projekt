@@ -20,16 +20,16 @@ namespace DataLayer.DAO
             
         }
 
-        public static Personel GetPersonelByID(int ID)
-        {
-            using (System_NaprawEntities ctx = new System_NaprawEntities())
-            {
-                Guid IDguid = ToGuid(ID);
-                return ctx.Personel.FirstOrDefault(m => m.id_person == IDguid);
-            }
+        //public static Personel GetPersonelByID(Guid? ID)
+        //{
+        //    using (System_NaprawEntities ctx = new System_NaprawEntities())
+        //    {
+        //        Guid IDguid = ToGuid(ID);
+        //        return ctx.Personel.FirstOrDefault(m => m.id_person == IDguid);
+        //    }
 
-        }
-        public static Personel GetPersonelByID(Guid ID)
+        //}
+        public static Personel GetPersonelByID(Guid? ID)
         {
             using (System_NaprawEntities ctx = new System_NaprawEntities())
             {

@@ -57,7 +57,9 @@ namespace DataLayer
         {
             using (System_NaprawEntities ctx = new System_NaprawEntities())
             {
-                return ctx.Activity.Where(m => m.id_request == reqID).Include(c => c.Personel).Include(c => c.Request).Include(c => c.Activity_Type).ToList();
+                var part1 = ctx.Activity.Where(m => m.id_request == reqID).Include(c => c.Personel).Include(c => c.Request).Include(c => c.Activity_Type).ToList();
+                var part2 = ctx.Activity.Where(m => m.id_request == reqID).Include(c => c.Request).Include(c => c.Activity_Type).ToList();
+                return part2;
             }
         }
 
@@ -103,7 +105,8 @@ namespace DataLayer
                     activity.act_type = type.act_type;
                     activity.Activity_Type = null;
                     activity.Personel = null;
-                    activity.Request = null;                   
+                    activity.Request = null;
+                    activity.id_personel = null;                
                     ctx.Entry(activity).State = EntityState.Detached;                    
                     ctx.Activity.Add(activity);
                     ctx.SaveChanges();

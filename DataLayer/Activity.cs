@@ -16,7 +16,7 @@ namespace DataLayer
     {
         public System.Guid id_activity { get; set; }
         public System.Guid id_request { get; set; }
-        public System.Guid id_personel { get; set; }
+        public System.Guid? id_personel { get; set; }
         public string description { get; set; }
         public string result { get; set; }
         public Status status { get; set; }
@@ -25,7 +25,9 @@ namespace DataLayer
         public string act_type { get; set; }
     
         public virtual Activity_Type Activity_Type { get; set; }
+    
         public virtual Personel Personel { get; set; }
+        
         public virtual Request Request { get; set; }
     }
 }

@@ -246,4 +246,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-/System Napraw/App.config
+
+
+
